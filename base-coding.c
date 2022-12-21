@@ -1,21 +1,7 @@
 #include "stm32f4xx.h"
 
-// Pin configuration
-#define LED_PIN    GPIO_Pin_12
-#define LED_PORT   GPIOD
-#define LED_CLK    RCC_AHB1Periph_GPIOD
-
-// Morse code definitions
-#define DOT        1
-#define DASH       3
-#define CHAR_GAP   3
-#define WORD_GAP   7
-
-// Morse code lookup table
-// Each entry consists of a series of dots and dashes,
-// separated by spaces. For example, the entry for 'A'
-// is ".-", which represents a dot followed by a dash.
-const char *morse_codes[] = {
+// Define the Morse code alphabet
+const char* morse_code[] = {
   ".-",   // A
   "-...", // B
   "-.-.", // C
@@ -44,11 +30,29 @@ const char *morse_codes[] = {
   "--.."  // Z
 };
 
+// Define the output pin and initialize it to low
+#define LED_PIN GPIO_Pin_12
+#define LED_PORT GPIOD
+#define LED_ON()  GPIO_SetBits(LED_PORT, LED_PIN)
+#define LED_OFF() GPIO_ResetBits(LED_PORT, LED_PIN)
+
 int main(void)
 {
-  // Initialize LED
+  // Initialize the output pin
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
   GPIO_InitTypeDef gpio_init;
-  RCC_AHB1PeriphClockCmd(LED_CLK, ENABLE);
   gpio_init.GPIO_Pin = LED_PIN;
   gpio_init.GPIO_Mode = GPIO_Mode_OUT;
-  gpio_init.GPIO_OType = GPIO_OT
+  gpio_init.GPIO_OType = GPIO_OType_PP;
+  gpio_init.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(LED_PORT, &gpio_init);
+  LED_OFF();
+
+  // Encode a message in Morse code
+  const char* message = "HELLO WORLD";
+  while (*message) {
+    char c = *message++;
+
+    // Make sure the character is uppercase
+  }
