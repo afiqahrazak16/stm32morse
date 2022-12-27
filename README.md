@@ -1,13 +1,6 @@
 # stm32morse
 Instruction:
 Morse Code transmitter (1%)
-Modify the blink to transmit the 3 different letters representing 3 group members repeatedly.
-Take a video of the 3 letters being blinked. Overlay the video with the letter being transmitted. Upload the video to Youtube.
-
-Suggestions about what to put in the README.md:
-Name of group and names of team members
-Simplified description of what you did, so you can recreate the experiment later
-Link to Youtube (already mentioned above)
 
 Group Name:
 Group Members:
